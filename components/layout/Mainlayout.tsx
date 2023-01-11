@@ -8,7 +8,7 @@ type Props = {
 
  const Mainlayout = ({children}:Props) => {
    return (
-    <section>
+    <section className='w-full bg-gray-200'>
         <NavBar />
             <main>
             {children}

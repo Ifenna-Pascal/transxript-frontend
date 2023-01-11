@@ -1,9 +1,9 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Mainlayout from '../components/layout/Mainlayout'
+import ModalContextProvider from '../components/context/ModalContext'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Mainlayout>
+  return <ModalContextProvider>
     <Component {...pageProps} />
-  </Mainlayout>
+  </ModalContextProvider>
 }

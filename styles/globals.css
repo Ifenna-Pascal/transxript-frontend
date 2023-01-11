@@ -20,5 +20,42 @@
         background-repeat: no-repeat;
         /* background-position: center; */
     }
+    
+    .action {
+        background: linear-gradient(to right, rgba(0, 0,0, 0.7), rgba(14, 51, 134,0.8)), url("/assets/signin.jpg");
+    }
+
+    .container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.4);
+      }
+      .modal {
+        z-index: 1;
+        min-width: 500px;
+        min-height: 200px;
+        background: white;
+        display: flex;
+        /* align-items: center; */
+        /* justify-content: center; */
+        /* border-radius: 5px; */
+        position: relative;
+        animation: animate 0.3s;
+      }
+      @keyframes animate {
+        from {
+          transform: scale(0.5);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+ 
 }
-/* rgb(14,51,134) */
