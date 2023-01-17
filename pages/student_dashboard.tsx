@@ -73,7 +73,7 @@ function Student() {
       ],
     };
   return (
-    <div className='px-8 '>   
+    <div className='px-8' id="print">   
         <div className='grid grid-cols-3 py-8 items-start justify-start '>
             <Block header="Student Name" result={`${token?.token?.firstname} ${token?.token?.lastname}`} />
             <Block header="Registration Number" result={token?.token?.regNumber} />

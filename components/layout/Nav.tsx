@@ -1,4 +1,7 @@
+import { useRouter } from 'next/router'
 import React from 'react'
+import getToken from '../../hooks/getToken'
+import StudentToken from '../../hooks/studnet'
 import { useModalContext } from '../context/ModalContext'
 import ModalWraper from '../modals'
 import Auth from '../modals/Auth'
@@ -7,8 +10,15 @@ import HomeLink from '../ui/HomeLink'
 import NavLink from '../ui/NavLink'
 
 const NavBar: React.FC = () => {
+    const router = useRouter();
     const modalHook = useModalContext();
-    // console.log(modalHook?.show)
+    const token = getToken() || StudentToken();
+    const logout = () => {
+        if(window !== undefined) {
+            localStorage.clear();
+            router.reload()
+        }
+    }    
     return (
         <nav className='py-5 px-24 sticky top-0 z-50 bg-white shadow-lg'>
             <div className='flex items-center justify-between'>
@@ -18,7 +28,9 @@ const NavBar: React.FC = () => {
                     <NavLink name='Components' href='/#components' />
                     <NavLink name='Use-case' href='/#usecase' />
                 </div>
-                <Button name='Login' className='login' onClick={() => modalHook?.toggle()} />
+               {
+                token ? <button onClick={logout} className='login'><i className="ri-logout-circle-r-line mr-3 text-[16px]"></i>Logout</button> :  <Button name='Login' className='login' onClick={() => modalHook?.toggle()} />
+               }
             </div>
             {modalHook?.show ? <ModalWraper>
                 <Auth />

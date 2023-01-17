@@ -30,6 +30,8 @@ function Results({setStep}: Props) {
     setStep('2')
   }
 
+
+
   return (
     <div>
         <div className='flex items-center justify-center w-[40px] h-[40px] cursor-pointer rounded-[50%] bg-primary' onClick={()=> setStep('2')}>

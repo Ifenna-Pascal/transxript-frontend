@@ -3,10 +3,12 @@ import React, {useEffect} from 'react';
 import { useContextHook } from '../../context/AuthContext';
 import StudentToken from '../../hooks/studnet';
 import { getResults } from '../../services/auth';
+import Print from '../../services/print';
 
 type Props = {
   level:string;
   semester:string;
+  // download: any
 }
 
  
@@ -15,10 +17,11 @@ function Result({level, semester}:Props) {
   const results = context?.state?.studentResults?.filter((x:any) => x.level === level && x.semester === semester);
   console.log(results, "resillll");
   
+  
   return (
-    <div className='rounded-[10px] border '>
+    <div className='rounded-[10px] border ' id="print">
         <div className='px-4'>
-            <p className='py-4 relative border-b text-[16px] font-popins'>Department: <span>Computer & Electronic Engineering</span> <button className='flex absolute right-0 top-2 items-center justify-center  w-[40px] h-[40px] rounded-[50%]'><i className="ri-download-cloud-2-line text-[24px] hover:translate-y-2 duration-500 text-primary font-semibold"></i></button></p>
+            <p className='py-4 relative border-b text-[16px] font-popins'>Department: <span>Computer & Electronic Engineering</span> <button onClick={() => Print()} className='flex absolute right-0 top-2 items-center justify-center  w-[40px] h-[40px] rounded-[50%]'><i className="ri-download-cloud-2-line text-[24px] hover:translate-y-2 duration-500 text-primary font-semibold"></i></button></p>
             <p className='py-4 border-b text-[16px] font-popins'>Academic Level: <span>{level}</span></p>
             <p className='py-4 border-b text-[16px] font-popins'>Semester: <span>{semester} semester</span></p>
         </div>
