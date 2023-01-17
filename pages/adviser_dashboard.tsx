@@ -30,7 +30,7 @@ function Adviser() {
   return (
     <div className='flex '>
         <Sidebar />
-        <div className='ml-[250px] w-full py-6 px-10'>
+        <div className='ml-[230px] w-full py-6 px-10'>
           
           { step === '1' ?  <UploadCourse handleChange={handleChange} step={step} setStep={setStep} form={form}/> : step === '2' ? <SelectCourse setStep={setStep} form={form} /> : <Results setStep={setStep}/> }
         </div>

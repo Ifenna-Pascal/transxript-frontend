@@ -21,6 +21,10 @@
         /* background-position: center; */
     }
     
+    .list {
+      @apply py-5 cursor-pointer hover:font-bold flex items-center text-gray-300 font-popins text-[16px]
+    }
+
     .action {
         background: linear-gradient(to right, rgba(0, 0,0, 0.7), rgba(14, 51, 134,0.8)), url("/assets/signin.jpg");
     }
