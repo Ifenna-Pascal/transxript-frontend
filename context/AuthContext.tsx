@@ -2,7 +2,7 @@ import React, {createContext, useReducer, useContext} from 'react'
 import { reducerProps, contextProps } from './interface';
 import AuthReducer from '../reducer/authReducer';
 import { LoginProps } from '../services/interface';
-import { login, selectCourse, userProfile } from '../services/auth';
+import { courseDetails, login, saveResults, selectCourse, userProfile, userStudents } from '../services/auth';
 import { useRouter } from 'next/router';
 
 const initialState:reducerProps = {
@@ -10,6 +10,10 @@ const initialState:reducerProps = {
     isLoading: false,
     profile: null,
     selected_course: null,
+    course_details: null,
+    students: null,
+    result:[],
+    savedResults: null
 }
 
 export const AuthContext = createContext<contextProps | null>(null);
@@ -32,8 +36,27 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
      })
   } 
 
+  const allStudents = async () => {
+    dispatch({
+      type: 'SET_LOADING',
+      payload: undefined,
+    });
+    const data = await userStudents();
+    dispatch({
+      type: 'ALL_STUDENTS',
+      payload: data?.data?.students
+    })
+  
+  }
+
+  const setResult = async (result:any) => {
+    dispatch({
+      type: 'SET_RESULT',
+      payload: result
+    })
+  }
+
   const selectedCourse = async (detail:any) => {
-    console.log(detail, "deee")
     dispatch({
       type: 'SET_LOADING',
       payload: undefined
@@ -46,8 +69,39 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
 
   }
 
+  const addResult = async (result: object) => {
+    dispatch({
+      type: 'ADD_RESULT',
+      payload: result
+    })
+  }
+
+  const saveResult = async (results: any) => {
+    dispatch({
+      type: 'SET_LOADING',
+      payload: undefined,
+    })
+    const data = await saveResults(results)
+    dispatch({
+      type: 'SAVE_RESULT',
+      payload: data?.data?.result
+    })
+  } 
+
+  const getCourse = async (id: string) => {
+    dispatch({
+      type: "SET_LOADING",
+      payload: undefined
+    })
+    const data = await courseDetails(id);
+    dispatch({
+      type: "COURSE_DETAILS",
+      payload: data?.data?.course
+    })
+  }
+
   return (
-    <AuthContext.Provider value={{state, userLogin, getUserProfile, selectedCourse}}>
+    <AuthContext.Provider value={{state, userLogin, getUserProfile, selectedCourse, getCourse, allStudents, addResult, setResult, saveResult}}>
         {children}
     </AuthContext.Provider>
   )

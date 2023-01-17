@@ -12,7 +12,7 @@ const NavBar: React.FC = () => {
     return (
         <nav className='py-5 px-24 sticky top-0 z-50 bg-white shadow-lg'>
             <div className='flex items-center justify-between'>
-                <HomeLink text="text-[38px]" />
+                <HomeLink text="text-[30px]" />
                 <div className='flex items-center mx-auto'>
                     <NavLink name='About' href='/#about' />
                     <NavLink name='Components' href='/#components' />

@@ -9,10 +9,10 @@
         @apply text-primary font-semibold leading-[54px] font-PT
     }   
     .nav-link {
-        @apply text-gray-700 font-popins leading-[27px] text-[20px] px-12
+        @apply text-gray-700 font-popins leading-[27px] text-[16px] px-6 hover:text-primary hover:font-semibold
     }
     .login {
-        @apply text-white text-[18px] leading-[27px] px-16 tracking-wider py-3 flex items-center justify-center bg-primary
+        @apply text-white text-[15px] leading-[27px] px-14 tracking-wider py-2 flex items-center justify-center bg-primary
     }
     .heroBg {
         background: linear-gradient(to right, rgba(14, 51, 134, 0.9), rgba(0,0,0,0.5)), url("/assets/hero2.jpg");

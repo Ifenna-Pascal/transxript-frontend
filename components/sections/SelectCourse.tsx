@@ -1,4 +1,5 @@
-import React, {Dispatch, useEffect, SetStateAction} from 'react'
+import React, {Dispatch, useState, useEffect, SetStateAction} from 'react'
+import { toast } from 'react-toastify'
 import { useContextHook } from '../../context/AuthContext'
 import { formsProps } from '../../pages/adviser_dashboard'
 import Button from '../ui/Button'
@@ -12,8 +13,12 @@ type Props = {
 
 function SelectCourse({setStep, form}: Props) {
     const context = useContextHook();
+    const [course, setCourse] = useState<string>('')
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
+        if(!course) return toast.error('select a course');
+        console.log(course, "ccccc")
+        context?.getCourse(course)
         setStep('3');
     }
     useEffect(() => {
@@ -30,7 +35,7 @@ function SelectCourse({setStep, form}: Props) {
                 <form onSubmit={handleSubmit} >
                 <div className=''>
                <p className='text-gray-600 pb-2 font-montserrat text-[18px] relative'>Select Course<span className='absolute ml-1 text-red-500'>*</span></p>
-               <select   className='w-full text-gray-800 font-PT text-[20px] border py-3 h-[60px] border-gray-300 focus:outline-gray-300 px-4 tex rounded-md'> 
+               <select name="course" onChange={(e:any) => setCourse(e.target.value) }  className='w-full text-gray-800 font-PT text-[20px] border py-3 h-[60px] border-gray-300 focus:outline-gray-300 px-4 tex rounded-md'> 
                     <option selected disabled>Select Course</option>
                     {
                         context?.state?.selected_course?.length > 0 ?

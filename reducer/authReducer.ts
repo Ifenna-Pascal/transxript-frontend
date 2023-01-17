@@ -22,6 +22,47 @@ const AuthReducer = (state: any, action: { type: any; payload: any }) => {
         selected_course: action.payload,
         isLoading: false,
       };
+    case 'COURSE_DETAILS':
+      return {
+        ...state,
+        course_details: action.payload,
+      };
+
+    case 'ALL_STUDENTS':
+      return {
+        ...state,
+        students: action.payload,
+        isLoading: false,
+      };
+
+    case 'SAVE_RESULT':
+      return {
+        ...state,
+        savedResults: action.payload,
+        isLoading: false,
+        result: [],
+      };
+
+    case 'SET_RESULT':
+      return {
+        ...state,
+        result: action.payload,
+      };
+
+    // case 'EDIT_RESULT':
+    //   return {
+    //     ...state,
+    //     result: state.result?.map((result: any) =>
+    //       result.id === action.payload?.id ? { ...result, grade: action.payload.grade } : result,
+    //     ),
+    //   };
+
+    case 'ADD_RESULT':
+      return {
+        ...state,
+        result: [action.payload, ...state.result],
+      };
+
     case 'ERROR':
       return {
         ...state,
