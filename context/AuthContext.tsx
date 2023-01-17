@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, {createContext, useReducer, useContext} from 'react'
 import { reducerProps, contextProps } from './interface';
 import AuthReducer from '../reducer/authReducer';
 import { LoginProps } from '../services/interface';
-import { courseDetails, login, saveResults, selectCourse, userProfile, userStudents } from '../services/auth';
+import { courseDetails, getResults, login, saveResults, selectCourse, studentLogin, userProfile, userStudents } from '../services/auth';
 import { useRouter } from 'next/router';
 
 const initialState:reducerProps = {
@@ -13,7 +14,8 @@ const initialState:reducerProps = {
     course_details: null,
     students: null,
     result:[],
-    savedResults: null
+    savedResults: null,
+    studentResults: []
 }
 
 export const AuthContext = createContext<contextProps | null>(null);
@@ -23,6 +25,9 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
   const router = useRouter();
   const redirect = () => {
     router.push("/adviser_dashboard");
+  }
+  const studentRedirect = () => {
+    router.push("/student_dashboard");
   }
   const [state, dispatch] = useReducer(AuthReducer, initialState);
   const userLogin = (data: LoginProps ) => {
@@ -100,8 +105,26 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
     })
   }
 
+  const loginStudent = async (regNumber: string) => {
+    studentLogin(regNumber, dispatch, studentRedirect)
+  }
+  
+  const studentsResults = async (id:string):Promise<any> => {
+    dispatch({
+      type: "SET_LOADING",
+      payload: undefined
+    })
+    const data = await getResults(id);
+    console.log(data, "dddddddd");
+    
+    dispatch({
+      type: 'STUDENT_RESULTS',
+      payload: data?.data?.result
+    })
+  }  
+
   return (
-    <AuthContext.Provider value={{state, userLogin, getUserProfile, selectedCourse, getCourse, allStudents, addResult, setResult, saveResult}}>
+    <AuthContext.Provider value={{state, userLogin, getUserProfile, selectedCourse, getCourse, allStudents, addResult, setResult, saveResult, loginStudent, studentsResults}}>
         {children}
     </AuthContext.Provider>
   )

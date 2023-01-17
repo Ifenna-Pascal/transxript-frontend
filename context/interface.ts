@@ -10,6 +10,7 @@ export interface reducerProps {
   students?: any;
   result?: any;
   savedResults?: any;
+  studentResults?: any;
 }
 
 export interface contextProps {
@@ -22,4 +23,6 @@ export interface contextProps {
   addResult: (result: object) => void;
   setResult: (result: any) => void;
   saveResult: (result: any) => void;
+  loginStudent: (data: string) => void;
+  studentsResults: (data: string) => void;
 }

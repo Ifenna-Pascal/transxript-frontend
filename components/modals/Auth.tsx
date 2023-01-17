@@ -11,7 +11,6 @@ interface formProps {
 }
 
 function Auth() {
-    const router = useRouter();
     const context = useContextHook();
     const initialState:formProps = {email: '', password: ''};
     const [form,setForm] = useState<formProps>(initialState)
@@ -26,10 +25,10 @@ function Auth() {
     const handleSubmit = async (e:React.SyntheticEvent):Promise<void> => {
         e.preventDefault();
         if(active === "adviser") {            
-           const res =  await context?.userLogin(form)
+          await context?.userLogin(form)
             
         }else {
-            router.push("/student_dashboard")
+            await(await context?.loginStudent(form?.email))
         }
     }
 

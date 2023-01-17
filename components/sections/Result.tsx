@@ -1,13 +1,26 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useContextHook } from '../../context/AuthContext';
+import StudentToken from '../../hooks/studnet';
+import { getResults } from '../../services/auth';
 
-function Result() {
+type Props = {
+  level:string;
+  semester:string;
+}
+
+ 
+function Result({level, semester}:Props) {
+  const context = useContextHook();
+  const results = context?.state?.studentResults?.filter((x:any) => x.level === level && x.semester === semester);
+  console.log(results, "resillll");
+  
   return (
     <div className='rounded-[10px] border '>
         <div className='px-4'>
-            <p className='py-4 border-b text-[16px] font-popins'>Department: <span>Computer & Electronic Engineering</span></p>
-            <p className='py-4 border-b text-[16px] font-popins'>Academic Session: <span>2017/2018</span></p>
-            <p className='py-4 border-b text-[16px] font-popins'>Semester: <span>1st Semester</span></p>
+            <p className='py-4 relative border-b text-[16px] font-popins'>Department: <span>Computer & Electronic Engineering</span> <button className='flex absolute right-0 top-2 items-center justify-center  w-[40px] h-[40px] rounded-[50%]'><i className="ri-download-cloud-2-line text-[24px] hover:translate-y-2 duration-500 text-primary font-semibold"></i></button></p>
+            <p className='py-4 border-b text-[16px] font-popins'>Academic Level: <span>{level}</span></p>
+            <p className='py-4 border-b text-[16px] font-popins'>Semester: <span>{semester} semester</span></p>
         </div>
 
         <div className="flex flex-col">
@@ -38,107 +51,27 @@ function Result() {
             </tr>
           </thead>
           <tbody>
-          
-            
-            <tr className="border-b">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">1</td>
-                
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">Engineering Maths</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                FEG 298
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                3
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                80
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                A
-              </td>
-            </tr> <tr className="border-b">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">2</td>
-                
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">Engineering Maths</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                FEG 298
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                3
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                80
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                A
-              </td>
-            </tr>
-            <tr className="border-b">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">3</td>
-                
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">Engineering Maths</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                FEG 298
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                3
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                80
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                A
-              </td>
-            </tr>
-            <tr className="border-b">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">4</td>
-                
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">Engineering Maths</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                FEG 298
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                3
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                80
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                A
-              </td>
-            </tr>  <tr className="border-b">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">5</td>
-                
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">Engineering Maths</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                FEG 298
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                3
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                80
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                A
-              </td>
-            </tr>  <tr className="border-b">
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">6</td>
-                
-              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">Engineering Maths</td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                FEG 298
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                3
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-                80
-              </td>
-              <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                A
-              </td>
-            </tr>
+              {
+                results && results.length > 0 ? results?.map((x:any,i:number) => (
+                  <tr className="border-b" key={x?._id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">{i+1}</td>
+                    
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">{x.courseTitle}</td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                    {x.courseCode}
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                    {x.creditLoad}
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
+                    {x.total}
+                  </td>
+                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    {x.grade}
+                  </td>
+                </tr>
+                )) : <tr className='flex items-center justify-center text-white  py-4 bg-red-400'>NO RESULT FOUND</tr>
+              }
           </tbody>
         </table>
       </div>

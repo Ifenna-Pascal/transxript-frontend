@@ -79,3 +79,41 @@ export const saveResults = async (results: any): Promise<any> => {
     // throw error
   }
 }
+
+export const studentLogin = async (regNumber: string, dispatch:any, router:any):Promise<any> => {
+  dispatch({
+    type: "SET_LOADING",
+    payload: undefined
+  })
+  try {
+    const {data} = await transxriptApi.post('/student/profile', {regNumber: regNumber});
+    localStorage.setItem('student_data', JSON.stringify(data?.data?.students));
+    router();
+  } catch (error:any) {
+      if(error?.response?.data){
+      toast.error(error.response?.data?.message);
+      dispatch({
+        type: 'ERROR',
+      });
+    }else {
+        toast.error('Network Error');
+    }
+  }
+}
+
+export const getResults = async(param: any):Promise<any> => {
+  console.log(param, "parammm");
+  // {params:{studentId:param?.studentId, level: param?.level, semester:param?.semester}}
+  try {
+    const {data} = await transxriptApi.get(`/result/get_result/${param}`);
+    console.log(data, "datataa")
+    return data;
+  } catch (error:any) {
+    console.log(error);
+    if(error?.response?.data){
+      toast.error(error?.response?.data?.message);
+    }else {
+        toast.error('Network Error');
+    }
+  }
+}
