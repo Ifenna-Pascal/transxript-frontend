@@ -15,7 +15,6 @@ type Props = {
 function Result({level, semester}:Props) {
   const context = useContextHook();
   const results = context?.state?.studentResults?.filter((x:any) => x.level === level && x.semester === semester);
-  console.log(results, "resillll");
   
   
   return (

@@ -17,7 +17,6 @@ function SelectCourse({setStep, form}: Props) {
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if(!course) return toast.error('select a course');
-        console.log(course, "ccccc")
         context?.getCourse(course)
         setStep('3');
     }
@@ -47,7 +46,7 @@ function SelectCourse({setStep, form}: Props) {
                         
                     }
                </select>
-               <Button name="Add Result" className='login my-6 py-3 rounded-md px-12 bg-primary hover:text-primary text-white text-[18px] font-semibold hover:bg-gray-300'  />
+               <Button name="Submit" className='login my-6 py-3 rounded-md px-12 bg-primary hover:text-primary text-white text-[18px] font-semibold hover:bg-gray-300'  />
                </div>   
            
               </form>

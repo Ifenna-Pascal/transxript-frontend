@@ -26,6 +26,9 @@ export const login = async (datas: LoginProps, dispatch: any, redirect: any): Pr
         type: 'ERROR',
       });
     }else {
+        dispatch({
+          type: 'ERROR',
+        });
         toast.error('Network Error');
     }
   }
@@ -75,6 +78,8 @@ export const saveResults = async (results: any): Promise<any> => {
     toast.success(data?.message);
     return data
   } catch (error) {
+    console.log(error);
+    
     return toast.error("Error creating result")
     // throw error
   }
@@ -103,7 +108,6 @@ export const studentLogin = async (regNumber: string, dispatch:any, router:any):
 
 export const getResults = async(param: any):Promise<any> => {
   console.log(param, "parammm");
-  // {params:{studentId:param?.studentId, level: param?.level, semester:param?.semester}}
   try {
     const {data} = await transxriptApi.get(`/result/get_result/${param}`);
     console.log(data, "datataa")
@@ -116,4 +120,34 @@ export const getResults = async(param: any):Promise<any> => {
         toast.error('Network Error');
     }
   }
+}
+
+export const allResults = async (datas:object): Promise<any> => {
+  try {
+    const {data} = await transxriptApi.post('/result/all_results', datas);
+    return data;
+  } catch (error:any) {
+    console.log(error);
+    
+    if(error?.response?.data){
+      toast.error(error?.response?.data?.message);
+    }else {
+        toast.error('Network Error');
+    }
+  }
+  
+}
+
+export const changePassword = async (password:string):Promise<any> => {
+  try {
+    const {data} = await transxriptApi.put('/auth/changePassword', {password:password});
+    toast.success("Updated password successfully") 
+    return data;
+  }catch(error:any) {    
+    if(error?.response?.data){
+      toast.error(error?.response?.data?.message);
+    }else {
+        toast.error('Network Error');
+    }
+  } 
 }

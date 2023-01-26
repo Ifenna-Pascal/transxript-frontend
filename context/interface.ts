@@ -11,6 +11,7 @@ export interface reducerProps {
   result?: any;
   savedResults?: any;
   studentResults?: any;
+  allResults?: any;
 }
 
 export interface contextProps {
@@ -25,4 +26,5 @@ export interface contextProps {
   saveResult: (result: any) => void;
   loginStudent: (data: string) => void;
   studentsResults: (data: string) => void;
+  allResult: (data: object) => void;
 }

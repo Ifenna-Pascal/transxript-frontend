@@ -4,7 +4,6 @@ import Result from '../components/sections/Result';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import Button from '../components/ui/Button';
 import StudentToken from '../hooks/studnet';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';

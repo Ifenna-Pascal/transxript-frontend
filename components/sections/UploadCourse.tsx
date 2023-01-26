@@ -10,13 +10,13 @@ type Props = {
   step: string;
   setStep: ( step: string) => void;
   form: formsProps,
-  handleChange: (e:any) => void
+  handleChange: (e:any) => void,
+  text: string
 }
 
 
-function UploadCourse({step, setStep, form, handleChange}: Props) {
+function UploadCourse({step, setStep, form, text, handleChange}: Props) {
 
-  const context = useContextHook();
     const handleSubmit = (e: { preventDefault: () => void }) => {
       
       e.preventDefault();
@@ -29,7 +29,7 @@ function UploadCourse({step, setStep, form, handleChange}: Props) {
     <div>
       <Header />
     <div className='my-6 min-h-[400px] max-w-[900px] w-full rounded-md'>
-     <h1 className='text-[24px] pb-5  text-gray-700 font-montserrat'> Upload Courses Details </h1>
+     <h1 className='text-[24px] pb-5  text-gray-700 font-montserrat'>{text} </h1>
     <form onSubmit={handleSubmit}>
     {/* <div className='mb-5'>
      <p className='text-gray-600 pb-2 font-montserrat text-[18px] relative'>Enter course title <span className='absolute ml-1 text-red-500'>*</span></p>

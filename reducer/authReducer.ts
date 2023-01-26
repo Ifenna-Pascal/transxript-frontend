@@ -67,6 +67,13 @@ const AuthReducer = (state: any, action: { type: any; payload: any }) => {
         isLoading: false,
       };
 
+    case 'ALL_RESULTS':
+      return {
+        ...state,
+        isLoading: false,
+        allResults: action.payload,
+      };
+
     case 'ERROR':
       return {
         ...state,

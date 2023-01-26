@@ -3,7 +3,7 @@ import React, {createContext, useReducer, useContext} from 'react'
 import { reducerProps, contextProps } from './interface';
 import AuthReducer from '../reducer/authReducer';
 import { LoginProps } from '../services/interface';
-import { courseDetails, getResults, login, saveResults, selectCourse, studentLogin, userProfile, userStudents } from '../services/auth';
+import { allResults, courseDetails, getResults, login, saveResults, selectCourse, studentLogin, userProfile, userStudents } from '../services/auth';
 import { useRouter } from 'next/router';
 
 const initialState:reducerProps = {
@@ -15,7 +15,8 @@ const initialState:reducerProps = {
     students: null,
     result:[],
     savedResults: null,
-    studentResults: []
+    studentResults: [],
+    allResults: null
 }
 
 export const AuthContext = createContext<contextProps | null>(null);
@@ -82,6 +83,7 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
   }
 
   const saveResult = async (results: any) => {
+    console.log(results, "logggg")
     dispatch({
       type: 'SET_LOADING',
       payload: undefined,
@@ -115,7 +117,6 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
       payload: undefined
     })
     const data = await getResults(id);
-    console.log(data, "dddddddd");
     
     dispatch({
       type: 'STUDENT_RESULTS',
@@ -123,8 +124,20 @@ function AuthContextProvider({children}: {children: React.ReactNode}) {
     })
   }  
 
+  const allResult = async (datas:object): Promise<any>=> {
+    dispatch({
+      type: 'SET_LOADING',
+      payload: undefined
+    })
+    const data = await allResults(datas);
+    dispatch({
+      type: 'ALL_RESULTS',
+      payload: data?.data?.results
+    })
+  }
+
   return (
-    <AuthContext.Provider value={{state, userLogin, getUserProfile, selectedCourse, getCourse, allStudents, addResult, setResult, saveResult, loginStudent, studentsResults}}>
+    <AuthContext.Provider value={{state, userLogin, getUserProfile, selectedCourse, getCourse, allStudents, allResult, addResult, setResult, saveResult, loginStudent, studentsResults}}>
         {children}
     </AuthContext.Provider>
   )
