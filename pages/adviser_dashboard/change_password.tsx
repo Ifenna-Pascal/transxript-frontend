@@ -37,9 +37,10 @@ function ChangePassword() {
         
         <Header />
         <form onSubmit={handleSubmit} className="my-10">
-        <p className='text-gray-600 pb-2 font-montserrat text-[16px] relative'>Enter Password <span className='absolute ml-1 text-red-500'>*</span></p>
 
        <div className='relative w-[80%]'>
+       <p className='text-gray-600 pb-2 font-montserrat text-[16px] relative'>Enter Password <span className='absolute ml-1 text-red-500'>*</span></p>
+
     <i className={`${show ? "ri-eye-off-line" : "ri-eye-line"} absolute right-[10px] bottom-[13px] text-gray-500 cursor-pointer`} onClick={() => setShow(!show)}></i>
        <input type={show ? "text" : "password"} min="6" value={password} onChange={handleChange} className='w-full text-gray-800 font-PT flex items-center justify-center text-[20px] border py-2 h-[50px] border-gray-300 focus:outline-gray-300 px-4 tex rounded-md' placeholder='****************' required />
        </div>

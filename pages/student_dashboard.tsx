@@ -28,7 +28,7 @@ function Student() {
       }
       console.log(token, "tokenn")
       setToken(token);
-      context?.studentsResults(token?.token?._id)
+      context?.studentsResults(token?.token?.regNumber)
     },[])
     const settings = {
       className: 'center',

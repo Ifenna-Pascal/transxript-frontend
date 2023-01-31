@@ -1,38 +1,30 @@
 /* eslint-disable no-unused-vars */
-import React, { Dispatch, useState, useEffect, SetStateAction} from 'react'
-import { toast } from 'react-toastify'
-import { useContextHook } from '../../context/AuthContext'
-import { GradeSwitch } from '../../services/switch'
-import Button from '../ui/Button'
-import UploadResults from './UploadResults';
-import * as XLSX from 'xlsx'
+import React, {useState, useEffect} from 'react'
+import AdminSideBar from '../../components/sections/AdminSideBar'
+import Header from '../../components/sections/Header';
+import * as XLSX from 'xlsx';
+import UploadResults from '../../components/sections/UploadResults';
+import Button from '../../components/ui/Button';
+import { useContextHook } from '../../context/AuthContext';
+import getToken from '../../hooks/getToken';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+import { addCourses} from '../../services/auth';
 
-type Props = {
-  setStep: Dispatch<SetStateAction<string>>
-}
-
-type IProps = {
-  id: string;
-  score: number;
-  grade:string;
-  name:string;
-  regNumber: string;
-}
-
-function Results({setStep}: Props) {
-  const context = useContextHook();
-  const details = context?.state?.course_details;
-  const profile = context?.state?.profile
-
-  useEffect(()=> {
-    context?.allStudents();
-  }, [])
-
-
-
-// on change states
+function AddCourses() {
+    // on change states
+const router = useRouter();
 const [excelFile, setExcelFile]=useState<any>(null);
+const [loading, setLoading] = useState(false);
 const [excelFileError, setExcelFileError]=useState<string | null>(null);  
+const context = useContextHook();
+useEffect(() => {
+  const token = getToken(); 
+  if(!token)  {
+  toast.error('Login to view');
+    router.push('/')
+  }
+},[])
 
 // submit
 const [excelData, setExcelData]=useState<any>(null);
@@ -67,6 +59,7 @@ else{
 }
 
 // submit function
+// eslint-disable-next-line no-unused-vars
 const handleSubmit=(e: { preventDefault: () => void; })=>{
     e.preventDefault();
     if(excelFile!==null){
@@ -81,45 +74,21 @@ const handleSubmit=(e: { preventDefault: () => void; })=>{
     else{
       setExcelData(null);
     }
-  }
-  
-const handleStep = () => {
-  if(excelData && excelData.length > 0) {
-    setExcelData(null);
-  }else setStep('2')
 }
 
-const saveResult = () => {
-  const result = excelData?.map((data: any) => {
-    return  {
-      regNo: data?.RegistrationNumber.toString(),
-      level: details?.year,
-      semester: details?.semester,
-      courseTitle: details?.courseTitle,
-      courseCode: details?.courseCode,
-      creditLoad: details?.creditLoad,
-      total: data?.Score.toString(),
-      grade: data?.Grade,
-      session: profile?.academic_session
-    }
-  })
-
-  context?.saveResult(result);
-  setStep('2')
+const uploadCourse = () => {
+  addCourses(excelData, setLoading)
 }
 
-
+ 
   return (
-    <div>
-        <div className='flex items-center justify-center w-[40px] h-[40px] cursor-pointer rounded-[50%] bg-primary' onClick={ handleStep}>
-        <i className="ri-arrow-left-s-line text-[28px] text-white"></i>
-        </div>
-        <div className='flex flex-col mt-3'>
-          <h1 className='text-[22px] py-2  text-gray-700 font-montserrat'> {details?.courseTitle} ({details?.courseCode}) </h1>
-          <p className='text-gray-500 -mt-2 font-montserrat text-[20px]'>{details?.year} Year - {details?.semester} Semester</p>
-          <p className='text-gray-500 pb-4  font-montserrat text-[18px]'>{details?.creditLoad} credit load</p>
-        </div>
-        {
+    <div className='flex'>
+    <AdminSideBar />
+    <div className='ml-[230px] w-full py-6 px-10'>
+        <Header />    
+     <div className='my-8'>
+     <h1 className='text-[20px] -mb-3 text-gray-700 font-montserrat'> Upload Course  </h1>
+     {
           excelData && excelData?.length > 0 ?     <table className="min-w-full border-b mt-4 text-center">
           <thead className="border-b">
             <tr>
@@ -127,16 +96,19 @@ const saveResult = () => {
                 S/N
           </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
-                Name
+                Year
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
-                Reg Number
+                Semester
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
-                Score (100%)
+                Course Title
               </th>
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
-                Grade
+                Course Code
+              </th>
+              <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 border-r">
+                Credit Load
               </th>
             </tr>
           </thead>
@@ -144,43 +116,42 @@ const saveResult = () => {
             
           {
             excelData?.map((student:any, id:any) => (
-              <Row key={id+1} id={id+1} name={student?.Name} regNumber={student?.RegistrationNumber} score={student?.Score} grade={student?.Grade} />
+              <Row key={id+1} id={id+1} year={student?.year} semester={student.semester} courseTitle={student?.courseTitle} creditLoad={student?.creditLoad} courseCode={student?.courseCode} />
             ))
           }
            
             
           </tbody>
-        <Button name={context?.state?.isLoading ? "saving...." : "save"} className='login my-6 py-3 rounded-md px-12 bg-primary hover:text-primary text-white text-[18px] font-semibold hover:bg-gray-300' onClick={saveResult} />
+        <Button name={loading ? "saving...." : "save"} className='login my-6 py-3 rounded-md px-12 bg-primary hover:text-primary text-white text-[18px] font-semibold hover:bg-gray-300' onClick={uploadCourse} />
         
         </table> : 
         <UploadResults handleFile={handleFile} handleSubmit={handleSubmit} />
-        }
-
+        }     
+     </div>
     </div>
+</div>
   )
 }
 
-export default Results
+export default AddCourses
 
 
- const Row = ({id, score, grade, name, regNumber}: any) => {  
+const Row = ({id, year, semester, courseTitle, courseCode, creditLoad}: any) => {  
  
   return (
     <tr className="border-b shadow-sm" key={id}>
     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">{id}</td>
-      
-    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">{name}</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">{year}</td>
+    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r">{semester}</td>
     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap border-r">
-      {regNumber}
+      {courseTitle}
       </td>
     <td className="text-sm text-gray-900 font-light relative py-4 whitespace-nowrap border-r">
- 
-      {score}
-    </td>
-    <td className="text-sm text-gray-900 font-light  py-4 whitespace-nowrap border-r">
-      {grade}
-    </td>
- 
+      {courseCode}
+    </td> 
+    <td className="text-sm text-gray-900 font-light relative py-4 whitespace-nowrap border-r">
+      {creditLoad}
+    </td> 
   </tr>    
   )
 }

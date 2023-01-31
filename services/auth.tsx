@@ -6,19 +6,77 @@ import { toast } from 'react-toastify';
 import transxriptApi from '../hooks/axiosHook';
 import { LoginProps } from './interface';
 
+export const register = async (profile:any, setLoading:any) => {
+  try {
+    setLoading(true);
+    const {data} = await transxriptApi.post('/auth/register_adviser', profile);
+    toast.success('Teacher Registered Successfully');
+    setLoading(false);
+  }catch (error:any) {
+    console.log(error);
+    
+    toast.error(error.response?.data?.message);
+    setLoading(false)
+  }
+}
+
+export const addStudents = async (profile:any, setLoading:any) => {
+  try {
+    setLoading(true);
+    const {data} = await transxriptApi.post('/student/add_student', profile);
+    console.log(data);
+    
+    toast.success('Student Registered Successfully');
+    setLoading(false);
+  }catch (error:any) {
+    console.log(error, "errror");
+    
+    setLoading(false)
+    if(error.response?.data?.message) {
+    toast.error(error.response?.data?.message);
+    return 
+    }else {
+      toast.error("Network error")
+    }
+  }
+}
+
+export const addCourses = async (profile:any, setLoading:any) => {
+ try {
+    const profiles = profile.map((x:any) => {
+      return {
+        creditLoad: x.creditLoad.toString(),
+        year: x.year.toString(),
+        ...x,
+      }
+    })
+    setLoading(true);
+    const {data} = await transxriptApi.post('/courses/create_course', profiles);
+    console.log(data);
+    
+    toast.success('Course Registered Successfully');
+    setLoading(false);
+  }catch (error:any) {
+    console.log(error);
+    toast.error(error.response?.data?.message);
+    setLoading(false)
+  }
+}
+
 export const login = async (datas: LoginProps, dispatch: any, redirect: any): Promise<any> => {
   dispatch({
     type: 'SET_LOADING',
   });
   try {
     const {data} = await transxriptApi.post('/auth/login', datas);
+  
     localStorage.setItem('user_token', JSON.stringify(data?.data?.token));
     dispatch({
       type: 'USER_LOGIN',
       payload: true
     });
     toast.success('Logged In Successfully');
-    redirect()
+    redirect(data?.data?.user?.userType)
   } catch (error: any) {
     if(error?.response?.data){
       toast.error(error.response?.data?.message);
@@ -34,13 +92,16 @@ export const login = async (datas: LoginProps, dispatch: any, redirect: any): Pr
   }
 };
 
-
 export const userProfile = async (): Promise<any> => {
    try {
      const {data} = await transxriptApi.get('/auth/profile');
     return data
-   } catch (error) {
-      throw error;
+   } catch (error:any) {
+    if(error?.response?.data){
+      toast.error(error.response?.data?.message);
+    }else {
+      toast.error('Network error')
+    }
    } 
 }
 
@@ -113,7 +174,7 @@ export const getResults = async(param: any):Promise<any> => {
     console.log(data, "datataa")
     return data;
   } catch (error:any) {
-    console.log(error);
+    console.log(error, "error");
     if(error?.response?.data){
       toast.error(error?.response?.data?.message);
     }else {

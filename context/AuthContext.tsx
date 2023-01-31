@@ -24,8 +24,8 @@ export const AuthContext = createContext<contextProps | null>(null);
 
 function AuthContextProvider({children}: {children: React.ReactNode}) {
   const router = useRouter();
-  const redirect = () => {
-    router.push("/adviser_dashboard");
+  const redirect = (userType:string) => {
+    router.push(userType === "admin" ? "/admin" : "/adviser_dashboard")
   }
   const studentRedirect = () => {
     router.push("/student_dashboard");

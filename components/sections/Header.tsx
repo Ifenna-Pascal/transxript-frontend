@@ -4,6 +4,7 @@ import { useContextHook } from '../../context/AuthContext'
 function Header() {
     const context = useContextHook( )
 const profile = context?.state?.profile
+// console.log(profile);
 
   return (
     <div className='flex flex-col'>

@@ -31,14 +31,7 @@ function UploadCourse({step, setStep, form, text, handleChange}: Props) {
     <div className='my-6 min-h-[400px] max-w-[900px] w-full rounded-md'>
      <h1 className='text-[24px] pb-5  text-gray-700 font-montserrat'>{text} </h1>
     <form onSubmit={handleSubmit}>
-    {/* <div className='mb-5'>
-     <p className='text-gray-600 pb-2 font-montserrat text-[18px] relative'>Enter course title <span className='absolute ml-1 text-red-500'>*</span></p>
-     <input placeholder='Engineering maths' type="text" className='w-full font-PT text-gray-800 text-[20px] border py-3 h-[60px] border-gray-300 focus:outline-gray-300 px-4 tex rounded-md' />
-     </div> */}
-     {/* <div className='mb-5'>
-     <p className='text-gray-600 pb-2 font-montserrat text-[18px] relative'>Enter course code <span className='absolute ml-1 text-red-500'>*</span></p>
-     <input placeholder='FEG 227' type="text" className='w-full text-gray-800 text-[20px] font-PT border py-3 h-[60px] border-gray-300 focus:outline-gray-300 px-4 tex rounded-md' />
-     </div>    */}
+   
        <div className='mb-5'>
      <p className='text-gray-600 pb-2 font-montserrat text-[18px] relative'>Select Academic Year <span className='absolute ml-1 text-red-500'>*</span></p>
      <select name="year" onChange={handleChange}  className='w-full text-gray-800 font-PT text-[20px] border py-3 h-[60px] border-gray-300 focus:outline-gray-300 px-4 tex rounded-md'> 

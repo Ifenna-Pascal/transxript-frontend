@@ -25,8 +25,8 @@ const NavBar: React.FC = () => {
                 <HomeLink text="text-[30px]" />
                 <div className='flex items-center mx-auto'>
                     <NavLink name='About' href='/#about' />
-                    <NavLink name='Components' href='/#components' />
-                    <NavLink name='Use-case' href='/#usecase' />
+                    <NavLink name='Get started' href='/#components' />
+                    {/* <NavLink name='Use-case' href='/#usecase' /> */}
                 </div>
                {
                 token ? <button onClick={logout} className='login'><i className="ri-logout-circle-r-line mr-3 text-[16px]"></i>Logout</button> :  <Button name='Login' className='login' onClick={() => modalHook?.toggle()} />

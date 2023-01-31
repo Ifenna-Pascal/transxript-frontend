@@ -43,7 +43,7 @@ function Sidebar() {
 
 export default Sidebar
 
-const LinkS = ({name, href}:IProps) => {
+export const LinkS = ({name, href}:IProps) => {
   const router = useRouter();
   return (
     <Link href={href}>

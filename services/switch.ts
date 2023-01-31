@@ -1,11 +1,39 @@
+/* eslint-disable no-const-assign */
 /* eslint-disable no-unused-vars */
-export const GradeSwitch = (res: string) => {
-  const result = parseInt(res);
-  let level;
-  if (result <= 45) level = 'F';
-  if (result > 45 && result < 50) level = 'D';
-  if (result > 50 && result < 60) level = 'C';
-  if (result > 60 && result < 70) level = 'B';
-  if (result > 70) level = 'A';
-  return level;
+export const GradeSwitch = (grade: any): any => {
+  let ans;
+  switch (grade) {
+    case 'A':
+      ans = 5;
+      break;
+    case 'B':
+      ans = 4;
+      break;
+    case 'C':
+      ans = 3;
+      break;
+    case 'D':
+      ans = 2;
+      break;
+    case 'F':
+      ans = 0;
+      break;
+    default:
+      return null;
+  }
+  return ans;
+};
+
+export const calcCGPA = (results: any) => {
+  let totalCreditLoad = 0;
+  let sum = 0;
+  let ans;
+  results.forEach((result: any) => {
+    totalCreditLoad += parseInt(result.creditLoad);
+    const currentSum = parseInt(result?.creditLoad) * GradeSwitch(result?.grade);
+    sum += currentSum;
+    console.log(sum / totalCreditLoad);
+    ans = sum / totalCreditLoad;
+  });
+  return ans;
 };

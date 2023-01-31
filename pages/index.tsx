@@ -20,8 +20,7 @@ export default function Home() {
           <Hero />
           <About />
           <Action />
-          {/* <About /> */}
-</Mainlayout>
+    </Mainlayout>
        </main>
     </>
   )

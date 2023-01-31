@@ -1,7 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 import React from 'react'
-// import Listings from '../ui/Listings'
-// import { Ri24HoursLine } from 'react-icons/ri'
 
 function About() {
   return (
@@ -15,11 +13,6 @@ function About() {
             <p className='font-popins text-left text-primary text-[16px] uppercase font-semibold'>Computerized Trasncript System.</p>
             <h1 className='text-gray-800 font-bold font-PT py-2 leading-[54px]  text-[45px]'>How transxript works!! </h1>
            <p className='text-[18px] text-gray-500 font-popins'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad velit architecto corporis Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, nulla! Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, illum!</p>
-           {/* <ul className='py-4'>
-            <li  className='text-[18px] text-gray-500 font-popins'>Studnet Authentication.</li>
-            <li  className='text-[18px] text-gray-500 font-popins'>Review Compiled Result</li>
-            <li  className='text-[18px] text-gray-500 font-popins'>Download Compiled Result </li>
-           </ul> */}
         </div>
     </div>
   )

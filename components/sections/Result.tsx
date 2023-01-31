@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useContextHook } from '../../context/AuthContext';
 import StudentToken from '../../hooks/studnet';
 import { getResults } from '../../services/auth';
 import Print from '../../services/print';
+import { calcCGPA } from '../../services/switch';
 
 type Props = {
   level:string;
@@ -15,14 +16,19 @@ type Props = {
 function Result({level, semester}:Props) {
   const context = useContextHook();
   const results = context?.state?.studentResults?.filter((x:any) => x.level === level && x.semester === semester);
-  
-  
+  const [gp, setGP] = useState<any>('');
+  useEffect(()=> {
+    const result = calcCGPA(results);
+    setGP(result)
+  }, [results])
+
   return (
     <div className='rounded-[10px] border ' id="print">
         <div className='px-4'>
             <p className='py-4 relative border-b text-[16px] font-popins'>Department: <span>Computer & Electronic Engineering</span> <button onClick={() => Print()} className='flex absolute right-0 top-2 items-center justify-center  w-[40px] h-[40px] rounded-[50%]'><i className="ri-download-cloud-2-line text-[24px] hover:translate-y-2 duration-500 text-primary font-semibold"></i></button></p>
             <p className='py-4 border-b text-[16px] font-popins'>Academic Level: <span>{level}</span></p>
             <p className='py-4 border-b text-[16px] font-popins'>Semester: <span>{semester} semester</span></p>
+            <p className='py-4 border-b text-[16px] font-popins'>CGPA: <span>{gp}</span></p>
         </div>
 
         <div className="flex flex-col">
