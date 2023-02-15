@@ -39,6 +39,7 @@
     "prettier": "^2.8.1",
     "tailwindcss": "^3.2.4"
   },
+  "proxy": "https://transxript-api-hou7.onrender.com/",
   "husky": {
     "hooks": {
       "pre-commit": "yarn lint"
