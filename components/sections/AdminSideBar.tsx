@@ -31,7 +31,7 @@ function AdminSideBar() {
      <LinkS name="Register Adviser" href="/admin" />
       <LinkS name="Add Students" href="/admin/addStudents" />
       <LinkS name="Add Courses" href="/admin/addCourses" />
-      <LinkS name="Make Admin" href="/admin/makeAdmin" />
+      {/* <LinkS name="Make Admin" href="/admin/makeAdmin" /> */}
       <li className='list mt-20' onClick={logout}><i className="ri-logout-circle-r-line mr-2  text-[22px]"></i> Logout</li>
      </ul>
    </div>

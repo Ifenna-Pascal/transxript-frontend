@@ -19,8 +19,8 @@ function Action() {
 const profile = context?.state?.profile
   const modalHook = useModalContext()
   return (
-    <section className='action flex items-center flex-col justify-center w-full min-h-[450px] bg-fixed bg-top  bg-no-repeat bg-cover' id='components'>
-        <h1 className='text-white font-bold font-PT capitalize  leading-[54px] mb-6 mt-16 text-[50px]'> Safeguard your result today!! </h1>
+    <section className='action hidden lg:flex items-center flex-col justify-center w-full min-h-[450px] bg-fixed bg-top  bg-no-repeat bg-cover' id='components'>
+        <h1 className='text-white font-bold font-PT capitalize  lg:leading-[54px] mb-6 mt-16 text-[50px]'> Safeguard your result today!! </h1>
         <Button name={token ? "Dashboard" : `Let's Get Started`} className='login bg-primary my-3 py-4 px-16 duration-500 text-white text-[20px] font-semibold hover:text-primary hover:bg-gray-300'   onClick={token ? () =>  router.push(profile?.userType === 'admin' ? '/admin' : '/adviser_dashboard') : modalHook?.toggle}/>
         {modalHook?.show ? <ModalWraper>
                 <Auth />

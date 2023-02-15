@@ -13,10 +13,10 @@ html {
         @apply text-primary font-semibold leading-[54px] font-PT
     }   
     .nav-link {
-        @apply text-gray-700 font-popins leading-[27px] text-[16px] px-6 hover:text-primary hover:font-semibold
+        @apply text-gray-700 font-popins md:block hidden leading-[27px] text-[16px] px-6 hover:text-primary hover:font-semibold
     }
     .login {
-        @apply text-white text-[15px] leading-[27px] px-14 tracking-wider py-2 flex items-center justify-center bg-primary
+        @apply text-white text-[14px] lg:text-[15px] leading-[20px] md:leading-[27px] px-8 md:px-14 tracking-wider py-2 flex items-center justify-center bg-primary
     }
     .heroBg {
         background: linear-gradient(to right, rgba(14, 51, 134, 0.9), rgba(0,0,0,0.5)), url("/assets/hero2.jpg");
@@ -51,9 +51,6 @@ html {
         min-height: 200px;
         background: white;
         display: flex;
-        /* align-items: center; */
-        /* justify-content: center; */
-        /* border-radius: 5px; */
         position: relative;
         animation: animate 0.3s;
       }

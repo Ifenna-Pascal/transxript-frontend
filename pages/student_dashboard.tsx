@@ -83,12 +83,12 @@ function Student() {
       <Result level="1" semester="second" />
       <Result level="2" semester="first" />
       <Result level="2" semester="second" />
-      {/* <Result/>
-      <Result/>
-      <Result/>
-      <Result/>
-      <Result/>
-      <Result/> */}
+      <Result level='3' semester='first'/>
+      <Result level='3' semester='second'/>
+      <Result level='4' semester='first'/>
+      <Result level='4' semester='second'/>
+      <Result level='5' semester='first'/>
+      <Result level='5' semester='second'/>
     </Slider>
     {/* <Button className='login py-5 px-16 bg-gray-200 text-primary text-[20px] font-semibold hover:bg-gray-300 my-8' name='Download Transcript' /> */}
     </div>

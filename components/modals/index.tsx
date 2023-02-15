@@ -7,8 +7,6 @@ type Props = {
     children?: React.ReactNode
 }
 
-
-
 function ModalWraper({children}: Props) {
     const modalHook = useModalContext();
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import getToken from './getToken';
-const BASE_URL = 'http://localhost:4000/api/'
+const BASE_URL = 'https://transxript-api-hou7.onrender.com/api/'
 
 const transxriptApi = axios.create({
     baseURL: BASE_URL,

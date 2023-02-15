@@ -35,8 +35,8 @@ const fileType=['application/vnd.openxmlformats-officedocument.spreadsheetml.she
 
 const handleFile = (e:any)=>{
 const selectedFile = e.target.files[0];
+if(!fileType.includes(selectedFile.type)) return toast.error('unsupported file type')
 if(selectedFile){
-  // console.log(selectedFile.type);
   if(selectedFile && fileType.includes(selectedFile.type)){
     console.log(selectedFile.type);
     console.log(selectedFile);
@@ -73,6 +73,7 @@ const handleSubmit=(e: { preventDefault: () => void; })=>{
     }
     else{
       setExcelData(null);
+      toast.error('File type not supported')
     }
 }
 

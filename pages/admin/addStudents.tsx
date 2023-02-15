@@ -35,12 +35,14 @@ const fileType=['application/vnd.openxmlformats-officedocument.spreadsheetml.she
 
 const handleFile = (e:any)=>{
 const selectedFile = e.target.files[0];
+console.log(selectedFile.type);
+
+if(!fileType.includes(selectedFile.type)) return toast.error('unsupported file type')
+
 if(selectedFile){
-  // console.log(selectedFile.type);
   if(selectedFile && fileType.includes(selectedFile.type)){
     console.log(selectedFile.type);
     console.log(selectedFile);
-    
     const reader = new FileReader();
     reader.readAsArrayBuffer(selectedFile);
     reader.onload=(e)=>{
@@ -62,17 +64,18 @@ else{
 // eslint-disable-next-line no-unused-vars
 const handleSubmit=(e: { preventDefault: () => void; })=>{
     e.preventDefault();
-    if(excelFile!==null){
+    if(excelFile!==null && excelFileError?.length === 0 ){
       const workbook = XLSX.read(excelFile,{type:'buffer'});
       const worksheetName = workbook.SheetNames[0];
       const worksheet=workbook.Sheets[worksheetName];
       const data = XLSX.utils.sheet_to_json(worksheet);
       setExcelData(data);
-      console.log(data, "data");
+      console.log( "data");
       
     }
     else{
       setExcelData(null);
+      toast.error('File type not supported')
     }
   }
   
@@ -109,7 +112,7 @@ const uploadStudent = () => {
             </tr>
           </thead>
           <tbody>
-            
+           {/* {excelFileError && <p className='text-red-500'>{excelFileError}</p>}  */}
           {
             excelData?.map((student:any, id:any) => (
               <Row key={id+1} id={id+1} firstname={student?.firstname} regNumber={student?.regNumber} lastname={student?.lastname} academic_session={student?.academic_session} />
